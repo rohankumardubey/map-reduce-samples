@@ -20,8 +20,8 @@ public class WordCountReducerTest {
     @Test
     public void splitValidRecordIntoTokens() throws IOException, InterruptedException {
         reduceDriver.withInput(new Text("the"), Arrays.asList(new IntWritable(1), new IntWritable(2)))
-                .withOutput(new Text("the"), new IntWritable(3)) 
-                .runTest();
+        .withOutput(new Text("the"), new IntWritable(3)) 
+        .runTest();
     } 
     
 }

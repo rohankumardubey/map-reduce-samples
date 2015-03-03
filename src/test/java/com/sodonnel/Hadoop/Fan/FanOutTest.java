@@ -1,4 +1,4 @@
-package com.sodonnel.Hadoop;
+package com.sodonnel.Hadoop.Fan;
 
 
 import org.apache.hadoop.conf.Configuration;
@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class WordCountTest {
+public class FanOutTest {
 
     @Test
     public void test() throws Exception {
@@ -31,7 +31,7 @@ public class WordCountTest {
 
         FileSystem fs = FileSystem.getLocal(conf); 
         fs.delete(output, true); // delete old output
-        WordCount driver = new WordCount();
+        Fan driver = new Fan();
         driver.setConf(conf);
         int exitCode = driver.run(new String[] { input.toString(), output.toString() });
         assertThat(exitCode, is(0));
