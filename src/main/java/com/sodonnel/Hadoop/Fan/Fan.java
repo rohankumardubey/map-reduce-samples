@@ -31,8 +31,8 @@ public class Fan extends Configured implements Tool {
 
         // Setup MapReduce
         job.setMapperClass(FanOutMapper.class);
-        job.setReducerClass(FanOutReducer.class);
-        job.setNumReduceTasks(1);
+        // job.setReducerClass(FanOutReducer.class);
+        // job.setNumReduceTasks(0);
 
         // Specify key / value
         job.setOutputKeyClass(Text.class);
@@ -46,10 +46,10 @@ public class Fan extends Configured implements Tool {
         FileOutputFormat.setOutputPath(job, outputDir);
         job.setOutputFormatClass(TextOutputFormat.class);
         
-        MultipleOutputs.addNamedOutput(job, "text1", TextOutputFormat.class,
-                NullWritable.class, Text.class);
-        MultipleOutputs.addNamedOutput(job, "text2", TextOutputFormat.class,
-                NullWritable.class, Text.class);
+      //  MultipleOutputs.addNamedOutput(job, "text1", TextOutputFormat.class,
+      //          NullWritable.class, Text.class);
+      //  MultipleOutputs.addNamedOutput(job, "text2", TextOutputFormat.class,
+      //          NullWritable.class, Text.class);
         
         // Delete output if exists
         FileSystem hdfs = FileSystem.get(conf);
