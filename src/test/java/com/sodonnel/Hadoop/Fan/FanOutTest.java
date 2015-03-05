@@ -5,19 +5,13 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.FileUtil;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.*;
-import org.apache.hadoop.mapred.OutputLogFilter;
-import org.apache.hadoop.mrunit.mapreduce.ReduceDriver; 
 import org.apache.hadoop.mapred.Utils.OutputFileUtils.OutputFilesFilter;
 import org.junit.*;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 public class FanOutTest {
 
@@ -40,23 +34,9 @@ public class FanOutTest {
     
     private void checkOutput(Configuration conf, Path output) throws IOException {
         FileSystem fs = FileSystem.getLocal(conf);
-        Path[] outputFiles = FileUtil.stat2Paths(
-        fs.listStatus(output, new OutputFilesFilter()));
-        assertThat(outputFiles.length, is(1));
-        BufferedReader actual = asBufferedReader(fs.open(outputFiles[0]));
-        BufferedReader expected = asBufferedReader(getClass().getResourceAsStream("/expected.txt"));
-        String expectedLine;
-        while ((expectedLine = expected.readLine()) != null) {
-            String actualLine = actual.readLine();
-            assertThat(actualLine, is(expectedLine));
-        }
-        assertThat(actual.readLine(), nullValue());
-        actual.close();
-        expected.close();
-    }
-        
-    private BufferedReader asBufferedReader(InputStream in) throws IOException {
-        return new BufferedReader(new InputStreamReader(in));
-    }  
-        
+        Path[] outputFiles = FileUtil.stat2Paths(fs.listStatus(output, new OutputFilesFilter()));
+        assertThat(outputFiles.length, is(2));
+        assertTrue(outputFiles[0].toString().indexOf("h-m-00000") > 0);
+        assertTrue(outputFiles[1].toString().indexOf("o-m-00000") > 0);
+    }        
 }
