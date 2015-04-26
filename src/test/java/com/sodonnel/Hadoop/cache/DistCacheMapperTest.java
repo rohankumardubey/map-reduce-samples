@@ -1,6 +1,8 @@
 package com.sodonnel.Hadoop.cache;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,18 +14,19 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DistCacheMapperTest {
+public class DistCacheMapperTest   {
 
     MapDriver<LongWritable, Text, NullWritable, Text> mapDriver;
     private static final Logger log = Logger.getLogger(DistCacheMapper.class);
     
     @Before
-    public void setup() {
+    public void setup() throws URISyntaxException {
         DistCacheMapper mapper = new DistCacheMapper();
         mapDriver = MapDriver.newMapDriver(mapper);
         
         // Notice how to add a cachefile to the mapper for testing
         mapDriver.addCacheFile("./input/data.csv");
+        mapDriver.addCacheFile(new URI("./input.data.csv#lookup.csv"));
     }
     
     

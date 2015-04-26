@@ -24,22 +24,33 @@ public class DistCacheMapper extends
     @Override
     public void setup(Context context)
             throws IOException, InterruptedException {
-        // This is how to deal with the files in YARN / MapRed 2
-        // if (context.getCacheFiles() != null
-        //         && context.getCacheFiles().length > 0) {
-        //     URI[] files = context.getCacheFiles();
-        // Apparently the file can also be accessed by its identifier, ie
-        // the part after the # in the filepath.
-        // }
-        Path[] files = DistributedCache.getLocalCacheFiles(context.getConfiguration());
-        log.info(files[0].toString());
+        // Two ways to access the cacheFiles - either way, you need to know what
+        // file you are actually looking for if different files are required for different things.
         
-        BufferedReader reader = new BufferedReader(new FileReader(files[0].toString())); 
+        // First way, context.getCacheFiles() - returns a list of URIs corresponding to the cache files.
+        URI[] YarnFiles = context.getCacheFiles();
+        log.info(YarnFiles[0].getPath());
+                
+        BufferedReader reader = new BufferedReader(new FileReader(YarnFiles[0].getPath())); 
         String line;
+        log.info("Reading File using first method");
         while ((line = reader.readLine())!= null) {
             log.info(line);    
         }
-
+        reader.close();
+        
+        // Second way - the files are localized into the default directory of the JVM running the job
+        // So you can access them with the full path used to upload them:
+        File some_file = new File("./input/data.csv");
+        log.info (some_file.toString());
+        
+        reader = new BufferedReader(new FileReader(some_file)); 
+        log.info("Read file using the second method");
+        while ((line = reader.readLine())!= null) {
+            log.info(line);    
+        }
+        reader.close();
+        
         super.setup(context);
     }    
     
