@@ -25,7 +25,7 @@ public class WordCountTest {
     public void test() throws Exception {
         Configuration conf = new Configuration(); 
         conf.set("fs.defaultFS", "file:///"); 
-        conf.set("mapred.job.tracker", "local");
+        conf.set("mapred.framework.name", "local");
         Path input = new Path("input"); 
         Path output = new Path("output");
 

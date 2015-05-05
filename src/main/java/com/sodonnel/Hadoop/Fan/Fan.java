@@ -9,6 +9,9 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.CounterGroup;
+import org.apache.hadoop.mapreduce.Counters;
+import org.apache.hadoop.mapreduce.Counter;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
@@ -49,15 +52,15 @@ public class Fan extends Configured implements Tool {
         // and adding the following one, prevents a zero byte file from
         // being created when you use multi-outputs
         //
-        //job.setOutputFormatClass(TextOutputFormat.class);
-        LazyOutputFormat.setOutputFormatClass(job, TextOutputFormat.class);
+        job.setOutputFormatClass(TextOutputFormat.class);
+        //LazyOutputFormat.setOutputFormatClass(job, TextOutputFormat.class);
 
         //
         // If you want to have named outputs, then define them upfront here
         //
-        //  MultipleOutputs.addNamedOutput(job, "text1", TextOutputFormat.class,
+        //  MultipleOutputs.addNamedOutput(job, "badRecords", TextOutputFormat.class,
         //          NullWritable.class, Text.class);
-        //  MultipleOutputs.addNamedOutput(job, "text2", TextOutputFormat.class,
+        //  MultipleOutputs.addNamedOutput(job, "goodRecords", TextOutputFormat.class,
         //          NullWritable.class, Text.class);
         
         // Delete output if exists
@@ -66,7 +69,22 @@ public class Fan extends Configured implements Tool {
             hdfs.delete(outputDir, true);
 
         // Execute job
-        return job.waitForCompletion(true) ? 0 : 1;
+        int result = job.waitForCompletion(true) ? 0 : 1;
+        
+        // Access a single counter by name - remember it can be null if it was never incremented
+        Counters counters = job.getCounters();
+        System.out.println("******"+counters.findCounter("com.sodonnel.Hadoop.Fan.OtherCounters", "GOOD_RECORDS").getValue());
+        
+        // Example code to iterate through all the counters, including custom counters     
+        for (CounterGroup group : counters) {
+            System.out.println("* Counter Group: " + group.getDisplayName() + " (" + group.getName() + ")");
+            System.out.println("  number of counters in this group: " + group.size());
+            for (Counter counter : group) {
+              System.out.println("  - " + counter.getDisplayName() + ": " + counter.getName() + ": "+counter.getValue());
+            }
+          }
+        
+        return result;
     }
 
     public static void main(String[] args) throws Exception {

@@ -16,7 +16,7 @@ public class FanOutMapper extends
     @Override
     public void setup(Context context) {
         mos = new MultipleOutputs<NullWritable, Text>(context);
-    }    
+    }           
     
     // 
     // You must override the cleanup method and close the multi-output object
@@ -33,12 +33,15 @@ public class FanOutMapper extends
         if (value.equals(new Text(""))) {
             return;
         }
+        
+        // Example of how to increment a custom counter
+        context.getCounter(OtherCounters.GOOD_RECORDS).increment(1);
 
         // Fan the records out into a file that has the first character of the 
         // string as the filename.
         // You can also use named outputs (defined in the job runner class)
         // instead of deriving the filename based on the input lines.
-        // If you pass a patch with / characters in it, the data will go into subdirs
+        // If you pass a path with / characters in it, the data will go into subdirs
         // eg 20150304/data etc
         String keyChar = value.toString().substring(0,1).toLowerCase();
         
@@ -47,5 +50,7 @@ public class FanOutMapper extends
         // contain slashes to make it into a path. The path is relative to the output dir
         // setup in the job config.
         mos.write(NullWritable.get(), value, keyChar);
+        // mos.write("goodRecords", NullWritable.get(),value);
+        // context.write(NullWritable.get(), value);
     }
 }

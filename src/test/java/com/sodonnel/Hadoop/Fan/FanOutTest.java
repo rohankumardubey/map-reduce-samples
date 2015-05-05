@@ -17,7 +17,7 @@ public class FanOutTest {
 
     @Test
     public void test() throws Exception {
-        Configuration conf = new Configuration(); 
+        Configuration conf = new Configuration();
         conf.set("fs.defaultFS", "file:///"); 
         conf.set("mapred.job.tracker", "local");
         Path input = new Path("input"); 
