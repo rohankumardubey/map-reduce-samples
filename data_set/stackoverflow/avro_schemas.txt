@@ -1,0 +1,125 @@
+{
+  "type":  "record",
+  "name":  "StackOverflowBadgeRecord",
+  "doc":   "A Record",
+  "fields": [
+    { "name": "id", "type": "string" },
+    { "name": "userid", "type": ["null", "string"] },
+    { "name": "name", "type": ["null", "string"] },
+    { "name": "date", "type": ["null", "string"] }
+  ]
+}
+
+
+{
+  "type":  "record",
+  "name":  "StackOverflowUserRecord",
+  "doc":   "A Record",
+  "fields": [
+    { "name": "id", "type": "string" },
+    { "name": "reputation", "type": ["null", "string"] },
+    { "name": "creationdate", "type": ["null", "string"] },
+    { "name": "displayname", "type": ["null", "string"] },
+    { "name": "lastaccessdate", "type": ["null", "string"] },
+    { "name": "websiteurl", "type": ["null", "string"] },
+    { "name": "location", "type": ["null", "string"] },
+    { "name": "aboutme", "type": ["null", "string"] },
+    { "name": "views", "type": ["null", "string"] },
+    { "name": "upvotes", "type": ["null", "string"] },
+    { "name": "downvotes", "type": ["null", "string"] },
+    { "name": "age", "type": ["null", "string"] },
+    { "name": "accountid", "type": ["null", "string"] },
+    { "name": "profileimageurl", "type": ["null", "string"] }
+  ]
+}
+
+
+{
+  "type":  "record",
+  "name":  "StackOverflowPostRecord",
+  "doc":   "A Record",
+  "fields": [
+    { "name": "id", "type": "string" },
+    { "name": "posttypeid", "type": ["null", "string"] },
+    { "name": "acceptedanswerid", "type": ["null", "string"] },
+    { "name": "parentid", "type": ["null", "string"] },
+    { "name": "creationdate", "type": ["null", "string"] },
+    { "name": "score", "type": ["null", "string"] },
+    { "name": "viewcount", "type": ["null", "string"] },
+    { "name": "body", "type": ["null", "string"] },
+    { "name": "owneruserid", "type": ["null", "string"] },
+    { "name": "ownerdisplayname", "type": ["null", "string"] },
+    { "name": "lasteditoruserid", "type": ["null", "string"] },
+    { "name": "lasteditordisplayname", "type": ["null", "string"] },
+    { "name": "lasteditdate", "type": ["null", "string"] },
+    { "name": "lastactivitydate", "type": ["null", "string"] },
+    { "name": "title", "type": ["null", "string"] },
+    { "name": "tags", "type": ["null", "string"] },
+    { "name": "answercount", "type": ["null", "string"] },
+    { "name": "commentcount", "type": ["null", "string"] },
+    { "name": "favoritecount", "type": ["null", "string"] },
+    { "name": "closeddate", "type": ["null", "string"] },
+    { "name": "communityowneddate", "type": ["null", "string"] }
+  ]
+}
+
+
+{
+  "type":  "record",
+  "name":  "StackOverflowCommentRecord",
+  "doc":   "A Record",
+  "fields": [
+    { "name": "id", "type": "string" },
+    { "name": "postid", "type": ["null", "string"] },
+    { "name": "score", "type": ["null", "string"] },
+    { "name": "text", "type": ["null", "string"] },
+    { "name": "creationdate", "type": ["null", "string"] },
+    { "name": "userdisplayname", "type": ["null", "string"] },
+    { "name": "userid", "type": ["null", "string"] }
+  ]
+}
+
+
+{
+  "type":  "record",
+  "name":  "StackOverflowTagRecord",
+  "doc":   "A Record",
+  "fields": [
+    { "name": "id", "type": "string" },
+    { "name": "tagname", "type": ["null", "string"] },
+    { "name": "count", "type": ["null", "string"] },
+    { "name": "excerptpostid", "type": ["null", "string"] },
+    { "name": "wikipostid", "type": ["null", "string"] }
+  ]
+}
+
+
+{
+  "type":  "record",
+  "name":  "StackOverflowVoteRecord",
+  "doc":   "A Record",
+  "fields": [
+    { "name": "id", "type": "string" },
+    { "name": "postid", "type": ["null", "string"] },
+    { "name": "votetypeid", "type": ["null", "string"] },
+    { "name": "userid", "type": ["null", "string"] },
+    { "name": "creationdate", "type": ["null", "string"] },
+    { "name": "bountyamount", "type": ["null", "string"] }
+  ]
+}
+
+{
+  "type":  "record",
+  "name":  "StackOverflowPostLinkRecord",
+  "doc":   "A Record",
+  "fields": [
+    { "name": "id", "type": "string" },
+    { "name": "creationdate", "type": ["null", "string"] },
+    { "name": "postid", "type": ["null", "string"] },
+    { "name": "relatedpostid", "type": ["null", "string"] },
+    { "name": "linktypeid", "type": ["null", "string"] }
+  ]
+}
+
+
+
