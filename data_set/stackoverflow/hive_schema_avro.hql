@@ -1,3 +1,31 @@
+drop table if exists votetypes;
+
+create external table votetypes (
+  id  string,
+  vote_type string
+)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY "," ESCAPED BY '\\'
+STORED AS TEXTFILE location '/user/vagrant/hive/stackoverflow/votetypes';
+
+drop table if exists posttypes;
+
+create external table posttypes (
+  id  string,
+  post_type string
+)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY "," ESCAPED BY '\\'
+STORED AS TEXTFILE location '/user/vagrant/hive/stackoverflow/posttypes';
+
+drop table if exists linktypes;
+
+create external table linktypes (
+  id  string,
+  link_type string
+)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY "," ESCAPED BY '\\'
+STORED AS TEXTFILE location '/user/vagrant/hive/stackoverflow/linktypes';
+
+
 drop table if exists users;
   
 CREATE EXTERNAL TABLE users(
