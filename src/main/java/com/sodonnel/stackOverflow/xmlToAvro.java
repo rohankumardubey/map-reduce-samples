@@ -91,8 +91,8 @@ public class xmlToAvro extends Configured implements Tool {
     AvroMultipleOutputs.setCountersEnabled(job, true);
     
     AvroJob.setMapOutputKeySchema(job, SCHEMAS.get("badges")); //Schema.create(Schema.Type.INT));
-  //  AvroJob.setMapOutputValueSchema(job, SCHEMA);
- //   AvroJob.setOutputKeySchema(job, SCHEMA);
+    //  AvroJob.setMapOutputValueSchema(job, SCHEMA);
+   //   AvroJob.setOutputKeySchema(job, SCHEMA);
     
     // Specify key / value
    // job.setOutputKeyClass(Text.class);
@@ -104,13 +104,15 @@ public class xmlToAvro extends Configured implements Tool {
 
     // Output
     FileOutputFormat.setOutputPath(job, outputDir);
-    job.setOutputFormatClass(AvroKeyOutputFormat.class);
+    FileOutputFormat.setCompressOutput(job, true);
+    //job.setOutputFormatClass(AvroKeyOutputFormat.class);
+    LazyOutputFormat.setOutputFormatClass(job, AvroKeyOutputFormat.class);
         
     // Delete output if exists
     FileSystem hdfs = FileSystem.get(conf);
     if (hdfs.exists(outputDir))
       hdfs.delete(outputDir, true);
-    
+        
     // Execute job
     int result = job.waitForCompletion(true) ? 0 : 1;
     return result;
